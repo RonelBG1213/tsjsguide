@@ -1,0 +1,79 @@
+Training plan
+
+Day 1 : Javascript variables and arithmethic operators
+Day 2 : Javascript control structures(if,switch & loops)
+Day 3 : Typescript variables 
+Day 4 : Framework Playwright typescript installation and dependencies
+Day 5 : create basic typescript test 
+Day 6 : OOP framework
+Day 7 : Hands on
+Day 8 : Hands on
+Day 9 : Hands on
+Day 10 : Hands on
+
+
+//bash command to create file and folder structure
+mkdir -p tests helpers config
+touch playwright.config.ts tsconfig.json
+
+
+//playwright.config.ts --> put this value inside
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  timeout: 30000,
+  retries: 1,
+  use: {
+    headless: true,
+    viewport: { width: 1280, height: 720 },
+    ignoreHTTPSErrors: true,
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    trace: 'on-first-retry'
+  }
+});
+
+//tsconfig.json --> put this value inside
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "lib": ["ESNext", "DOM"],
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "outDir": "dist"
+  },
+  "include": ["tests", "helpers", "playwright.config.ts"]
+}
+
+
+//initialize npm project
+npm init -y
+
+//Install Playwright with TypeScript
+npm install -D playwright @playwright/test typescript ts-node
+
+
+//install playwright browsers
+npx playwright install
+
+
+//bash command create test file
+touch tests/example.spec.ts
+
+//runtime variables
+npx playwright test example.spec.ts --headed
+
+//in package.json
+"scripts": {
+    "tests": "npx playwright test example.spec.ts --headed",
+    "test": "npx playwright test",
+    "test:report": "npx playwright show-report html-report"
+}
+
+
+//for html report
+  reporter: [['html', { outputFolder: 'html-report', open: 'never' }]],

@@ -1,0 +1,42 @@
+// Understanding JavaScript Event Loop: Synchronous vs Asynchronous Execution
+console.log("1"); //<== synchronous log statement runs first
+
+setTimeout(() => { //<== asynchronous callback after 0 milliseconds delay - Macrotask
+console.log("2");
+}, 0);
+
+
+Promise.resolve().then(() => { //<== asynchronous - microtask higher priority than macrotask
+    console.log("3");
+});
+
+console.log("4"); //<== synchronous log statement runs second
+
+
+
+// Expected output order: 1, 4, 3, 2
+
+
+
+
+//    Term                      Meaning
+// Call Stack               Tracks functions being executed
+// Event Loop               Coordinates async callbacks when the stack is empty
+// Callback Queue           Stores setTimeout, event callbacks
+// Microtask Queue          Stores Promise .then() callbacks
+// Web APIs B               rowser/Node APIs that handle async operations
+
+
+
+// async/await under the hood uses microtasks:
+
+// async function run() {
+//   console.log("Start");
+
+//   await Promise.resolve();
+
+//   console.log("After await");
+// }
+
+// run();
+// console.log("Outside");

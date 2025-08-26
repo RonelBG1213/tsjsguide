@@ -17,6 +17,19 @@ var globalVar = "I am a global variable"; // Function-scoped variable
 let blockVariable = "I am a block-scoped variable"; // Block-scoped variable
 const constantVar = "I am a constant variable"; // Block-scoped constant
 
+var globalVar = "I am global";
+
+function example() {
+  var localVar = "I am local";
+
+  console.log(globalVar); // ✅ Accessible
+  console.log(localVar);  // ✅ Accessible
+}
+
+example();
+
+console.log(globalVar); // ✅ Accessible
+console.log(localVar);  // ❌ Error: localVar is not defined
 
 
 function demoVar() {
@@ -38,9 +51,17 @@ function demoLet() {
 demoLet();
 
 
+function demoConts() {
+  if (true) {
+    const n = 20;
+  }
+  console.log(n); // ❌ ReferenceError: n is not defined
+}
+demoConts();
 
 
-// constantVar = "Trying to change"; // Error: Assignment to constant variable 
+
+//  constantVar = "Trying to change"; // Error: Assignment to constant variable 
 console.log(globalVar); // Output: I am a global variable
 console.log(blockVariable); // Output: I am a block-scoped variable
 console.log(constantVar); // Output: I am a constant variable

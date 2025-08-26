@@ -10,10 +10,36 @@ let nul = null; //null
 // let bigIntNum = 9007199254741991n; //bigint
 
 
+
+
 //javascript variables
 var globalVar = "I am a global variable"; // Function-scoped variable
 let blockVariable = "I am a block-scoped variable"; // Block-scoped variable
 const constantVar = "I am a constant variable"; // Block-scoped constant
+
+
+
+function demoVar() {
+  if (true) {
+    var x = 10;
+  }
+  console.log(x); // ✅ Works: 10
+}
+demoVar();
+
+
+
+function demoLet() {
+  if (true) {
+    let y = 20;
+  }
+  console.log(y); // ❌ ReferenceError: y is not defined
+}
+demoLet();
+
+
+
+
 // constantVar = "Trying to change"; // Error: Assignment to constant variable 
 console.log(globalVar); // Output: I am a global variable
 console.log(blockVariable); // Output: I am a block-scoped variable

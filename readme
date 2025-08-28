@@ -1,0 +1,44 @@
+// Writing Your First TestWriting Your First Test
+import { test, expect } from '@playwright/test';
+
+test('homepage has title', async ({ page }) => {
+    await page.goto('https://example.com');
+    await expect(page).toHaveTitle(/Example Domain/);
+});
+
+// Locators and Selectors
+
+const heading = page.locator('h1');
+await expect(heading).toContainText('Example Domain');
+
+await page.getByText('More information').click();
+
+await page.getByRole('link', { name: 'More information' }).click();
+
+
+Assertions and Expectations
+
+await expect(page).toHaveTitle(/Example/);
+await expect(page.locator('h1')).toHaveText('Example Domain');
+await expect(page.locator('a')).toHaveAttribute('href', 'https://www.iana.org/domains/example');
+
+
+test hooks and fixtures
+// test.describe() – Groups related tests
+
+// beforeAll() – Runs once before all tests in the group
+
+// afterAll() – Runs once after all tests
+
+// beforeEach() – Runs before each test
+
+// afterEach() – Runs after each test
+test.describe(, () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('https://example.com');
+    });
+
+    test.only('example page has h1', async ({ page }) => {
+        await expect(page.locator('h1')).toBeVisible();
+    });
+});

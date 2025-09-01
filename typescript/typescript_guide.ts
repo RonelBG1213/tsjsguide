@@ -13,16 +13,34 @@
 // npm install -g typescript
 // tsc --init
 
+
+function checkSign(num : number){
+    if(num > 0){
+        console.log("postive")
+    }else if(num < 0){
+                console.log("negative")
+
+    }else{
+        console.log("sdasdas")
+    }
+}
+checkSign(-1)
+
 // Basic Types
 //variables
-// let username: string = "Alice";
-// let age: number = 30;
-// let isAdmin: boolean = true;
+let username: string = "Alice";
+let age: number = 30;
+let isAdmin: boolean = true;
 
 //Arrays and tupples
 // let colors: string[] = ["red", "blue"];
 // let user: [string, number] = ["Bob", 25];
-
+// user.push("Smith");
+// user.push(30);
+// user.push(32);
+// user.push("test");
+// user.sort
+// console.log(user); // Output: ['Bob', 25, 'Smith', 30, 32]
 //Any and uknowns
 // let anything: any = 5;
 // let uncertain: unknown = "hello";

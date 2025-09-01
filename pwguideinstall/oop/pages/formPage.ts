@@ -9,30 +9,45 @@ export class FormPage {
   readonly submitButton: Locator;
   readonly successMessage: Locator;
 
+
   constructor(page: Page) {
     this.page = page;
     this.textInput = page.locator(formSelectors.textInput);
     this.dropdown = page.locator(formSelectors.dropdown);
+    // this.dropdown.highlight; // Uncomment this line to enable Playwright's debug mode for this locator
     this.checkbox = page.locator(formSelectors.checkbox);
     this.submitButton = page.locator(formSelectors.submitButton);
     this.successMessage = page.locator(formSelectors.successMessage);
   }
 
-  async goto() {
+  goto = async () => {
     await this.page.goto('https://www.selenium.dev/selenium/web/web-form.html');
   }
 
-  async fillForm(name: string, dropdownValue: string) {
+  fillForm = async (name: string, dropdownValue: string) => {
     await this.textInput.fill(name);
     await this.dropdown.selectOption(dropdownValue);
     await this.checkbox.check();
+    await this.page.screenshot({ path: 'form-filled.png', fullPage: true });
   }
 
-  async submitForm() {
+
+  submitForm = async () => {
     await this.submitButton.click();
   }
 
-  async verifySubmissionSuccess() {
+  verifySubmissionSuccess = async () => {
     await expect(this.successMessage).toHaveText('Received!');
+  }
+
+  searchRedditInNewTab = async () => {
+    const newPage = await this.page.context().newPage();
+    await newPage.goto('https://www.reddit.com/');
+  }
+
+    playwrightWebsiteInNewTab = async () => {
+    const newPagePlaywright = await this.page.context().newPage();
+    await newPagePlaywright.goto('https://playwright.dev/');
+    await this.page.bringToFront();
   }
 }

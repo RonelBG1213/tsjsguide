@@ -1,5 +1,6 @@
-import { Page, Locator , expect} from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { formSelectors } from '../selectors/formSelector';
+
 
 export class FormPage {
   readonly page: Page;
@@ -45,9 +46,20 @@ export class FormPage {
     await newPage.goto('https://www.reddit.com/');
   }
 
-    playwrightWebsiteInNewTab = async () => {
+  playwrightWebsiteInNewTab = async () => {
     const newPagePlaywright = await this.page.context().newPage();
     await newPagePlaywright.goto('https://playwright.dev/');
     await this.page.bringToFront();
+  }
+
+  newlyOpenTab = async () => {
+    const [newPage] = await Promise.all([
+      this.page.context().waitForEvent('page'),
+      this.page.click('selector-that-opens-new-tab'), 
+    ]);
+    // interact with the new tab
+    await newPage.bringToFront();
+    await newPage.waitForLoadState();
+    expect(newPage.url()).toBe('https://www.example.com/');
   }
 }
